@@ -19,7 +19,7 @@ void pigeonholeSort(long int arr[], int n) {
 	}
 	//dizinin range'ini bulma
 	long int range = max - min + 1;
-	//dizinin elemanlarinin tutulacagi pigeon hollerin acilmasi
+	//dizinin elemanlarinin tutulacagi pigeon hollerin açılmasi
 	int* phole = (int*)malloc(range * sizeof(int));
 	memset(phole, 0, range * sizeof(int));
 	//elemanlarin pigeon hollere yerlestirilmesi
