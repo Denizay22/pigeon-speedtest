@@ -19,13 +19,13 @@ void pigeonholeSort(long int arr[], int n) {
 	}
 	//dizinin range'ini bulma
 	long int range = max - min + 1;
-	//dizinin elemanlarýnýn tutulacaðý pigeon hollerin açýlmasý
+	//dizinin elemanlarinin tutulacagi pigeon hollerin acilmasi
 	int* phole = (int*)malloc(range * sizeof(int));
 	memset(phole, 0, range * sizeof(int));
-	//elemanlarýn pigeon hollere yerleþtirilmesi
+	//elemanlarin pigeon hollere yerlestirilmesi
 	for (i = 0; i < n; i++)
 		phole[arr[i] - min]++;
-	//pigeon hollerdeki elemanlarýn tekrardan diziye geri konulmasý
+	//pigeon hollerdeki elemanlarin tekrardan diziye geri konulmasi
 	for (j = 0; j < range; j++) {
 		while (phole[j]-- > 0) {
 			arr[index++] = j + min;
@@ -39,27 +39,27 @@ int main() {
 	double time_spent_normal[4] = {};
 	double time_spent_bigrange[4] = {};
 
-	/* sýrayla 1.000, 10.000 ve 100.000 elemanlý 2'þer dosya, toplam 6 dosya okunup diziye aktarýlýyor.
-	pigeonhole sorting, dizinin eleman sayýsý ve range'i birbirine ne kadar yakýnsa teoride o kadar hýzlý çalýþtýðý
-	için, range'i eleman sayýsýyla eþit olan ve range'i eleman sayýsýnýn 10 katý fazla olan 2 farklý dizi sýralanýyor.
-	bu iþlemlerin süresi std::chrono::high_resolution_clock ile nanometre hassaslýðýnda ölçülüyor.*/
+	/* sirayla 1.000, 10.000 ve 100.000 elemanli 2'ser dosya, toplam 6 dosya okunup diziye aktariliyor.
+	pigeonhole sorting, dizinin eleman sayisi ve range'i birbirine ne kadar yakinsa teoride o kadar hizli calistigi
+	iÃ§in, range'i eleman sayisiyla esit olan ve range'i eleman sayisinin 10 kati fazla olan 2 farkli dizi siralaniyor.
+	bu islemlerin sÃ¼resi std::chrono::high_resolution_clock ile nanometre hassasliginda Ã¶lÃ§Ã¼lÃ¼yor.*/
 
 
 
 	long int* arr_1000 = (long int*)malloc(1000 * sizeof(long int));
-	//dosyanýn okunup diziye aktarýlmasý
+	//dosyanin okunup diziye aktarilmasi
 	FILE* arr1000 = fopen("1000.txt", "r");
 	for (i = 0; i < 1000; i++) {
 		fscanf(arr1000, "%d", &arr_1000[i]);
 	}
-	//pigeonholeSort fonksiyonunun çaðýrýlýp dizinin sýralanmasý, ayný zamanda sýralanýrken geçen süre de ölçülüyor
+	//pigeonholeSort fonksiyonunun Ã§agirilip dizinin siralanmasi, ayni zamanda siralanÄ±rken geÃ§en sÃ¼re de Ã¶lÃ§Ã¼lÃ¼yor
 	auto start = std::chrono::high_resolution_clock::now();
 	pigeonholeSort(arr_1000, 1000);
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 	time_spent_normal[0] = duration;
 	fclose(arr1000);
-	//yukarýdaki ayný iþlem, range'i dizinin eleman sayýsýndan 10 kat fazla olan baþka bir dizi için de yapýlýyor
+	//yukardaki ayni islem, range'i dizinin eleman sayÃ½sÃ½ndan 10 kat fazla olan baÃ¾ka bir dizi iÃ§in de yapÃ½lÃ½yor
 	FILE* arr1000_ = fopen("bigger_range_1000.txt", "r");
 	for (i = 0; i < 1000; i++) {
 		fscanf(arr1000_, "%d", &arr_1000[i]);
@@ -72,7 +72,7 @@ int main() {
 	fclose(arr1000_);
 	free(arr_1000);
 
-	//ayný iþlem 10.000 eleman sayýlý dizi için yapýlýyor
+	//aynÃ½ iÃ¾lem 10.000 eleman sayÃ½lÃ½ dizi iÃ§in yapÃ½lÃ½yor
 
 	long int* arr_10000 = (long int*)malloc(10000 * sizeof(long int));
 	FILE* arr10000 = fopen("10000.txt", "r");
@@ -97,7 +97,7 @@ int main() {
 	fclose(arr10000_);
 	free(arr_10000);
 
-	//ayný iþlem 100.000 eleman sayýlý dizi için yapýlýyor
+	//aynÃ½ iÃ¾lem 100.000 eleman sayÃ½lÃ½ dizi iÃ§in yapÃ½lÃ½yor
 
 	long int* arr_100000 = (long int*)malloc(100000 * sizeof(long int));
 	FILE* arr100000 = fopen("100000.txt", "r");
@@ -122,9 +122,9 @@ int main() {
 	fclose(arr100000_);
 	free(arr_100000);
 
-	/*süre ölçümleri arasýndaki fark çok fazla olduðu için(binlerce hatta onbinlerce kat fark var),
-	bu sürelerin normalize edilmesi gerekiyor. bu yüzden minimum ve maksimum diziler bulunup süreler
-	normalize ediliyor(6 ve 850 arasýnda)*/
+	/*sÃ¼re Ã¶lÃ§Ã¼mleri arasÃ½ndaki fark Ã§ok fazla olduÃ°u iÃ§in(binlerce hatta onbinlerce kat fark var),
+	bu sÃ¼relerin normalize edilmesi gerekiyor. bu yÃ¼zden minimum ve maksimum diziler bulunup sÃ¼reler
+	normalize ediliyor(6 ve 850 arasÃ½nda)*/
 
 	double min, max;
 	min = time_spent_normal[0];
@@ -146,7 +146,7 @@ int main() {
 
 
 	for (i = 0; i < 3; i++) {
-		time_spent_normal[i] = NORMALIZE; //NORMALIZE VE NORMALIZEB kodun en üstünde tanýmlanmýþ birer makro
+		time_spent_normal[i] = NORMALIZE; //NORMALIZE VE NORMALIZEB kodun en Ã¼stÃ¼nde tanÃ½mlanmÃ½Ã¾ birer makro
 		time_spent_bigrange[i] = NORMALIZEB;
 	}
 
@@ -154,15 +154,15 @@ int main() {
 	for (i = 0; i < 3; i++) {
 		printf("           %f birim sure                        %f birim sure\n\n", time_spent_normal[i], time_spent_bigrange[i]);
 	}
-	//Burdan sonrasý verilerin ekrana yazdýrýlmasý. Ekrana yazdýrýrken SFML kullandým (VS19 üzerinde)
+	//Burdan sonrasÃ½ verilerin ekrana yazdÃ½rÃ½lmasÃ½. Ekrana yazdÃ½rÃ½rken SFML kullandÃ½m (VS19 Ã¼zerinde)
 
-	//ekrana çýkacak yazýlarýn fontu
+	//ekrana Ã§Ã½kacak yazÃ½larÃ½n fontu
 	sf::Font font;
 	if (!font.loadFromFile("font.otf")) {
 		printf("\n Font yuklenirken hata olustu\n");
 	}
 
-	//ekranýn boyutu, 1280x1000
+	//ekranÃ½n boyutu, 1280x1000
 	sf::RenderWindow window(sf::VideoMode(1280, 1000), "Pigeonhole Sort Verileri");
 	while (window.isOpen()) {
 		sf::Event event;
@@ -172,7 +172,7 @@ int main() {
 		}
 		window.clear(sf::Color::Black);
 		
-		//X ve Y koordinatlarýnýn ekrana çizilmesi
+		//X ve Y koordinatlarÃ½nÃ½n ekrana Ã§izilmesi
 		
 		sf::RectangleShape y_axis(sf::Vector2f(1.0, 860.0));
 		y_axis.setPosition(120, 40);
@@ -183,7 +183,7 @@ int main() {
 		x_axis.setFillColor(sf::Color::White);
 		window.draw(x_axis);
 
-		//range = eleman sayýsý olan dizilerin ekrana çizilmesi
+		//range = eleman sayÃ½sÃ½ olan dizilerin ekrana Ã§izilmesi
 		
 		sf::RectangleShape t0(sf::Vector2f(100.0, time_spent_normal[0]));
 		t0.setPosition(160, 900 - time_spent_normal[0]);
@@ -200,7 +200,7 @@ int main() {
 		t2.setFillColor(sf::Color::Green);
 		window.draw(t2);
 		
-		//range = eleman sayýsý * 10 olan dizilerin ekrana çizilmesi
+		//range = eleman sayÃ½sÃ½ * 10 olan dizilerin ekrana Ã§izilmesi
 
 		sf::RectangleShape t0_b(sf::Vector2f(100.0, time_spent_bigrange[0]));
 		t0_b.setPosition(290, 900 - time_spent_bigrange[0]);
@@ -217,7 +217,7 @@ int main() {
 		t2_b.setFillColor(sf::Color::Red);
 		window.draw(t2_b);
 
-		//yazýlarýn ekrana çizilmesi
+		//yazÃ½larÃ½n ekrana Ã§izilmesi
 
 		sf::Text text_1000;
 		text_1000.setFont(font);
